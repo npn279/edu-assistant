@@ -7,4 +7,5 @@ __all__ = [
     "BaseDeployment",
     "Deployment",
     "HuggingFaceDeployment",
+    "GraphRagDeployment",
 ]
