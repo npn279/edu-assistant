@@ -1,5 +1,18 @@
 FROM python:3.11
 
+# Common dependencies
+RUN apt-get update -qqy && \
+    apt-get install -y --no-install-recommends \
+      ssh \
+      git \
+      gcc \
+      g++ \
+      poppler-utils \
+      libpoppler-dev \
+      unzip \
+      curl \
+      cargo
+
 # Keeps Python from generating .pyc files in the container
 # Turns off buffering for easier container logging
 # Force UTF8 encoding for funky character handling
@@ -28,7 +41,8 @@ ARG INSTALL_COMMUNITY_DEPS
 COPY pyproject.toml poetry.lock ./
 
 # Install poetry
-RUN pip install --no-cache-dir poetry==1.6.1
+RUN pip3 install --no-cache-dir poetry==1.6.1
+RUN pip3 install graphrag
 
 # Conditional installation of dependencies
 RUN if [ "$INSTALL_COMMUNITY_DEPS" = "true" ]; then \
@@ -39,6 +53,9 @@ RUN if [ "$INSTALL_COMMUNITY_DEPS" = "true" ]; then \
 
 COPY src/backend/ src/backend/
 COPY src/community src/community/
+
+# Install graphrag using pip after Poetry installs
+RUN $VIRTUAL_ENV/bin/pip install graphrag
 
 # Copy environment variables optionally 
 # IMPORTANT: Can't be put in the docker-compose, will break tests

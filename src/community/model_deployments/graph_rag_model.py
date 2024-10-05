@@ -51,7 +51,7 @@ class GraphRagDeployment(BaseDeployment):
         #     temperature=chat_request.temperature,
         # )
 
-        stream = await aget_response_stream(chat_request.message)
+        stream = await graph_utils.aget_response_stream(chat_request.message)
         report = await stream.__anext__()
 
         yield {
