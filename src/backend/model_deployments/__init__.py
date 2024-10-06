@@ -3,6 +3,7 @@ from backend.model_deployments.bedrock import BedrockDeployment
 from backend.model_deployments.cohere_platform import CohereDeployment
 from backend.model_deployments.sagemaker import SageMakerDeployment
 from backend.model_deployments.single_container import SingleContainerDeployment
+from backend.model_deployments.graph_rag_model import GraphRagDeployment
 
 __all__ = [
     "AzureDeployment",
@@ -10,4 +11,6 @@ __all__ = [
     "SingleContainerDeployment",
     "SageMakerDeployment",
     "BedrockDeployment",
+    "GraphRagDeployment"
 ]
+

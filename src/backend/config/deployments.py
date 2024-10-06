@@ -7,6 +7,7 @@ from backend.model_deployments import (
     CohereDeployment,
     SageMakerDeployment,
     SingleContainerDeployment,
+    GraphRagDeployment
 )
 from backend.model_deployments.azure import AZURE_ENV_VARS
 from backend.model_deployments.base import BaseDeployment
@@ -14,6 +15,7 @@ from backend.model_deployments.bedrock import BEDROCK_ENV_VARS
 from backend.model_deployments.cohere_platform import COHERE_ENV_VARS
 from backend.model_deployments.sagemaker import SAGE_MAKER_ENV_VARS
 from backend.model_deployments.single_container import SC_ENV_VARS
+from backend.model_deployments.graph_rag_model import GRAPHRAG_ENV_VARS
 from backend.schemas.deployment import Deployment
 from backend.services.logger.utils import LoggerFactory
 
@@ -26,6 +28,7 @@ class ModelDeploymentName(StrEnum):
     Azure = "Azure"
     Bedrock = "Bedrock"
     SingleContainer = "Single Container"
+    GraphRag = "GraphRag"
 
 
 use_community_features = Settings().feature_flags.use_community_features
@@ -71,6 +74,14 @@ ALL_MODEL_DEPLOYMENTS = {
         models=BedrockDeployment.list_models(),
         is_available=BedrockDeployment.is_available(),
         env_vars=BEDROCK_ENV_VARS,
+    ),
+    ModelDeploymentName.GraphRag: Deployment(
+        id="graphrag",
+        name=ModelDeploymentName.GraphRag,
+        deployment_class=GraphRagDeployment,
+        models=GraphRagDeployment.list_models(),
+        is_available=GraphRagDeployment.is_available(),
+        env_vars=GRAPHRAG_ENV_VARS,
     ),
 }
 

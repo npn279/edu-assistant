@@ -66,6 +66,9 @@ COPY --from=terrarium /usr/src/app/package*.json ./
 RUN npm install -g ts-node \
     && npm install \
     && npm prune --production
+
+RUN pip3 install graphrag
+
 COPY --from=terrarium /usr/src/app/. .
 ENV ENV_RUN_AS "docker"
 

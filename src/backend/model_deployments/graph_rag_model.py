@@ -5,9 +5,11 @@ from backend.chat.enums import StreamEvent
 from backend.schemas.chat import ChatMessage
 from backend.schemas.cohere_chat import CohereChatRequest
 from backend.schemas.context import Context
-from community.model_deployments import BaseDeployment
-from community.graph_rag import graph_utils
+from backend.model_deployments.base import BaseDeployment
+from backend.graph_rag import graph_utils
 
+
+GRAPHRAG_ENV_VARS = []
 
 class GraphRagDeployment(BaseDeployment):
     def __init__(self):

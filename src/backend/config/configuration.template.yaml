@@ -1,10 +1,11 @@
 deployments:
-  default_deployment: cohere_platform
+  default_deployment: graphrag
   enabled_deployments:
     - cohere_platform
     - sagemaker
     - azure
     - bedrock
+    - graphrag
   sagemaker:
     region_name: us-west-2
     endpoint_name: cohere-ai
