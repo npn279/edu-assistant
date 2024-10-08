@@ -24,6 +24,8 @@ from graphrag.query.structured_search.global_search.search import GlobalSearch
 
 
 async def search(query: str):
+    logging.warning('GO TO SEARCHING')
+
     api_key = os.getenv("GRAPHRAG_API_KEY")
     llm_model = "gpt-4o-mini"
 
@@ -105,6 +107,8 @@ async def search(query: str):
     return await search_engine.asearch(query)
 
 async def aget_response_stream(query: str):
+    logging.warning(f'GO TO SEARCHING: {query}')
+
     api_key = os.getenv("GRAPHRAG_API_KEY")
     llm_model = "gpt-4o-mini"
 
@@ -127,6 +131,7 @@ async def aget_response_stream(query: str):
     # higher value means we use reports from more fine-grained communities (at the cost of higher computation cost)
     COMMUNITY_LEVEL = 2
 
+
     entity_df = pd.read_parquet(f"{OUTPUT_DIR}/{ENTITY_TABLE}.parquet")
     report_df = pd.read_parquet(f"{OUTPUT_DIR}/{COMMUNITY_REPORT_TABLE}.parquet")
     entity_embedding_df = pd.read_parquet(f"{OUTPUT_DIR}/{ENTITY_EMBEDDING_TABLE}.parquet")
@@ -138,6 +143,8 @@ async def aget_response_stream(query: str):
         f"Report count after filtering by community level {COMMUNITY_LEVEL}: {len(reports)}"
     )
     report_df.head()
+    logging.warning('GET REPORTS')
+    logging.warning(reports)
 
     context_builder = GlobalCommunityContext(
         community_reports=reports,
@@ -248,7 +255,7 @@ async def main():
         response.append(result)
         print(response[-1], end='', flush=True)
 
-    
+
 
 
 
